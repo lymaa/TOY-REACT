@@ -59,10 +59,15 @@ export class Component {
         this.update();
     }
     update(){
+        let placeholder = document.createComment("placeholder");
+        let range = document.createRange();
+        range.setStart(this.range.endContainer,this.range.endOffset);
+        range.setEnd(this.range.endContainer,this.range.endOffset);
+        range.insertNode(placeholder)
         this.range.deleteContents();
-        
         let vdom = this.render();
         vdom.mountTo(this.range);
+        // placeholder.parentNode.removeChild(placeholder);
     }
     appendChild(vchild) {
         this.children.push(vchild)
